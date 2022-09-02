@@ -4,9 +4,10 @@ package main
 import "fmt"
 
 func main() {
-	var conferenceName = "Go Conference"
-	const conferenceTickets = 50
-	var remainingTickets = conferenceTickets
+	// := is sugar syntax for `var conferenceName string = "conference"`, this doesn't work for const
+	conferenceName := "Go Conference"
+	const conferenceTickets int = 50
+	remainingTickets := conferenceTickets
 
 	// %T: type
 	fmt.Printf("conferenceName is %T, conferenceTickets is %T, remainingTickets is %T\n", conferenceName, conferenceTickets, remainingTickets)
