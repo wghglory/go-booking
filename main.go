@@ -8,6 +8,9 @@ func main() {
 	conferenceName := "Go Conference"
 	const conferenceTickets uint = 50
 	remainingTickets := conferenceTickets
+	// var bookings = [50]string{"Derek", "Nana", "Peter"}
+	// var bookings = [50]string{}
+	var bookings [50]string
 
 	// %T: type
 	fmt.Printf("conferenceName is %T, conferenceTickets is %T, remainingTickets is %T\n", conferenceName, conferenceTickets, remainingTickets)
@@ -30,7 +33,8 @@ func main() {
 	fmt.Scan(&userTickets)
 
 	remainingTickets = remainingTickets - userTickets
+	bookings[0] = userName
 
 	fmt.Printf("User %v booked %v tickets. %v tickets left.\n", userName, userTickets, remainingTickets)
-
+	fmt.Printf("The first value: %v\n", bookings[0])
 }
