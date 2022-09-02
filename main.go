@@ -6,7 +6,7 @@ import "fmt"
 func main() {
 	// := is sugar syntax for `var conferenceName string = "conference"`, this doesn't work for const
 	conferenceName := "Go Conference"
-	const conferenceTickets int = 50
+	const conferenceTickets uint = 50
 	remainingTickets := conferenceTickets
 
 	// %T: type
@@ -18,7 +18,7 @@ func main() {
 	fmt.Println("Get your tickets here to attend.")
 
 	var userName string
-	var userTickets int
+	var userTickets uint
 
 	fmt.Println("Enter your first name: ")
 	// Scan to ask for prompt user input
@@ -29,6 +29,8 @@ func main() {
 	fmt.Println("Enter number of tickets: ")
 	fmt.Scan(&userTickets)
 
-	fmt.Printf("User %v booked %v tickets.\n", userName, userTickets)
+	remainingTickets = remainingTickets - userTickets
+
+	fmt.Printf("User %v booked %v tickets. %v tickets left.\n", userName, userTickets, remainingTickets)
 
 }
