@@ -1,7 +1,10 @@
 package main
 
 // format package
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	// := is sugar syntax for `var conferenceName string = "conference"`, this doesn't work for const
@@ -22,21 +25,35 @@ func main() {
 	fmt.Printf("We have total %v tickets, and %v are still available.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend.")
 
-	var userName string
-	var userTickets uint
+	for {
+		var firstName string
+		var lastName string
+		var userTickets uint
 
-	fmt.Println("Enter your first name: ")
-	// Scan to ask for prompt user input
-	// pointer & is a variable that points to the memory address of another variable
-	// Scan can assign the user's value to the userName variable cuz it has a pointer to its memory address
-	fmt.Scan(&userName)
+		fmt.Println("Enter your firstName: ")
+		// Scan to ask for prompt user input
+		// pointer & is a variable that points to the memory address of another variable
+		// Scan can assign the user's value to the firstName variable cuz it has a pointer to its memory address
+		fmt.Scan(&firstName)
 
-	fmt.Println("Enter number of tickets: ")
-	fmt.Scan(&userTickets)
+		fmt.Println("Enter your lastName: ")
+		fmt.Scan(&lastName)
 
-	remainingTickets = remainingTickets - userTickets
-	bookings = append(bookings, userName)
+		fmt.Println("Enter number of tickets: ")
+		fmt.Scan(&userTickets)
 
-	fmt.Printf("User %v booked %v tickets. %v tickets left.\n", userName, userTickets, remainingTickets)
-	fmt.Printf("The first value: %v\n", bookings[0])
+		remainingTickets = remainingTickets - userTickets
+		bookings = append(bookings, firstName)
+
+		fmt.Printf("User %v booked %v tickets. %v tickets left.\n", firstName, userTickets, remainingTickets)
+
+		firstNames := []string{}
+		for _, booking := range bookings {
+			var names = strings.Fields(booking)
+			firstNames = append(firstNames, names[0])
+		}
+
+		fmt.Printf("FirstNames of all our bookings: %v\n", firstNames)
+	}
+
 }
