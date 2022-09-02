@@ -20,8 +20,15 @@ func main() {
 	var userName string
 	var userTickets int
 
-	userName = "Derek"
-	userTickets = 2
+	fmt.Println("Enter your first name: ")
+	// Scan to ask for prompt user input
+	// pointer & is a variable that points to the memory address of another variable
+	// Scan can assign the user's value to the userName variable cuz it has a pointer to its memory address
+	fmt.Scan(&userName)
+
+	fmt.Println("Enter number of tickets: ")
+	fmt.Scan(&userTickets)
+
 	fmt.Printf("User %v booked %v tickets.\n", userName, userTickets)
 
 }
