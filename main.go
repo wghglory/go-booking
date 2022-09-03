@@ -3,6 +3,7 @@ package main
 // format package
 import (
 	"fmt"
+	"go-booking/helper"
 	"strings"
 )
 
@@ -20,6 +21,7 @@ var remainingTickets = conferenceTickets
 var bookings = []string{} // slice
 
 func main() {
+	helper.ShareFunction()
 
 	// %T: type
 	fmt.Printf("conferenceName is %T, conferenceTickets is %T, remainingTickets is %T\n", conferenceName, conferenceTickets, remainingTickets)

@@ -12,4 +12,7 @@ This will create `go.mod` describing the name/module path and version.
 
 ```bash
 go run main.go
+
+# run all go files in current directory
+go run .
 ```
