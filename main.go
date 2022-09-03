@@ -39,6 +39,12 @@ func main() {
 		fmt.Println("Enter your lastName: ")
 		fmt.Scan(&lastName)
 
+		// validation
+		if len(firstName) <= 2 || len(lastName) <= 2 {
+			fmt.Println("firstName and lastName length must be more than 2 characters. Please try again.")
+			continue
+		}
+
 		fmt.Println("Enter number of tickets: ")
 		fmt.Scan(&userTickets)
 
