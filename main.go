@@ -6,21 +6,25 @@ import (
 	"strings"
 )
 
+// := is sugar syntax for `var conferenceName string = "conference"`, this doesn't work for const
+var conferenceName = "Go Conference"
+
+const conferenceTickets uint = 50
+
+var remainingTickets = conferenceTickets
+
+// var bookings = [50]string{"Derek", "Nana", "Peter"}
+// var bookings = [50]string{}
+// var bookings []string // slice
+// var bookings = []string{} // slice
+var bookings = []string{} // slice
+
 func main() {
-	// := is sugar syntax for `var conferenceName string = "conference"`, this doesn't work for const
-	conferenceName := "Go Conference"
-	const conferenceTickets uint = 50
-	remainingTickets := conferenceTickets
-	// var bookings = [50]string{"Derek", "Nana", "Peter"}
-	// var bookings = [50]string{}
-	// var bookings []string // slice
-	// var bookings = []string{} // slice
-	bookings := []string{} // slice
 
 	// %T: type
 	fmt.Printf("conferenceName is %T, conferenceTickets is %T, remainingTickets is %T\n", conferenceName, conferenceTickets, remainingTickets)
 
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+	greetUsers()
 
 	for {
 		firstName, lastName, userTickets := getUserInputs()
@@ -35,9 +39,9 @@ func main() {
 			continue
 		}
 
-		remainingTickets, bookings = bookTicket(remainingTickets, userTickets, bookings, firstName, lastName)
+		remainingTickets, bookings = bookTicket(userTickets, firstName, lastName)
 
-		firstNames := getFirstNames(bookings)
+		firstNames := getFirstNames()
 		fmt.Printf("FirstNames of all our bookings: %v\n", firstNames)
 
 		if remainingTickets == 0 {
@@ -48,7 +52,7 @@ func main() {
 
 }
 
-func bookTicket(remainingTickets uint, userTickets uint, bookings []string, firstName string, lastName string) (uint, []string) {
+func bookTicket(userTickets uint, firstName string, lastName string) (uint, []string) {
 	remainingTickets = remainingTickets - userTickets
 	bookings = append(bookings, firstName+" "+lastName)
 
@@ -76,7 +80,7 @@ func getUserInputs() (string, string, uint) {
 	return firstName, lastName, userTickets
 }
 
-func getFirstNames(bookings []string) []string {
+func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
 		var names = strings.Fields(booking)
@@ -85,9 +89,9 @@ func getFirstNames(bookings []string) []string {
 	return firstNames
 }
 
-func greetUsers(confName string, tickets uint, remainingTickets uint) {
+func greetUsers() {
 	// %v: value
-	fmt.Printf("Welcome to %v booking application!\n", confName)
-	fmt.Printf("We have total %v tickets, and %v are still available.\n", tickets, remainingTickets)
+	fmt.Printf("Welcome to %v booking application!\n", conferenceName)
+	fmt.Printf("We have total %v tickets, and %v are still available.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend.")
 }
