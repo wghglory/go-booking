@@ -20,50 +20,24 @@ func main() {
 	// %T: type
 	fmt.Printf("conferenceName is %T, conferenceTickets is %T, remainingTickets is %T\n", conferenceName, conferenceTickets, remainingTickets)
 
-	// %v: value
-	fmt.Printf("Welcome to %v booking application!\n", conferenceName)
-	fmt.Printf("We have total %v tickets, and %v are still available.\n", conferenceTickets, remainingTickets)
-	fmt.Println("Get your tickets here to attend.")
+	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for {
-		var firstName string
-		var lastName string
-		var userTickets uint
+		firstName, lastName, userTickets := getUserInputs()
 
-		fmt.Println("Enter your firstName: ")
-		// Scan to ask for prompt user input
-		// pointer & is a variable that points to the memory address of another variable
-		// Scan can assign the user's value to the firstName variable cuz it has a pointer to its memory address
-		fmt.Scan(&firstName)
-
-		fmt.Println("Enter your lastName: ")
-		fmt.Scan(&lastName)
-
-		// validation
 		if len(firstName) <= 2 || len(lastName) <= 2 {
 			fmt.Println("firstName and lastName length must be more than 2 characters. Please try again.")
 			continue
 		}
-
-		fmt.Println("Enter number of tickets: ")
-		fmt.Scan(&userTickets)
 
 		if userTickets > remainingTickets {
 			fmt.Printf("We only have %v tickets remaining, you can't book %v tickets.\n", remainingTickets, userTickets)
 			continue
 		}
 
-		remainingTickets = remainingTickets - userTickets
-		bookings = append(bookings, firstName+" "+lastName)
+		remainingTickets, bookings = bookTicket(remainingTickets, userTickets, bookings, firstName, lastName)
 
-		fmt.Printf("User %v booked %v tickets. %v tickets left.\n", firstName, userTickets, remainingTickets)
-
-		firstNames := []string{}
-		for _, booking := range bookings {
-			var names = strings.Fields(booking)
-			firstNames = append(firstNames, names[0])
-		}
-
+		firstNames := getFirstNames(bookings)
 		fmt.Printf("FirstNames of all our bookings: %v\n", firstNames)
 
 		if remainingTickets == 0 {
@@ -72,4 +46,48 @@ func main() {
 		}
 	}
 
+}
+
+func bookTicket(remainingTickets uint, userTickets uint, bookings []string, firstName string, lastName string) (uint, []string) {
+	remainingTickets = remainingTickets - userTickets
+	bookings = append(bookings, firstName+" "+lastName)
+
+	fmt.Printf("User %v booked %v tickets. %v tickets left.\n", firstName, userTickets, remainingTickets)
+	return remainingTickets, bookings
+}
+
+func getUserInputs() (string, string, uint) {
+	var firstName string
+	var lastName string
+	var userTickets uint
+
+	fmt.Println("Enter your firstName: ")
+	// Scan to ask for prompt user input
+	// pointer & is a variable that points to the memory address of another variable
+	// Scan can assign the user's value to the firstName variable cuz it has a pointer to its memory address
+	// validation
+	fmt.Scan(&firstName)
+
+	fmt.Println("Enter your lastName: ")
+	fmt.Scan(&lastName)
+
+	fmt.Println("Enter number of tickets: ")
+	fmt.Scan(&userTickets)
+	return firstName, lastName, userTickets
+}
+
+func getFirstNames(bookings []string) []string {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	return firstNames
+}
+
+func greetUsers(confName string, tickets uint, remainingTickets uint) {
+	// %v: value
+	fmt.Printf("Welcome to %v booking application!\n", confName)
+	fmt.Printf("We have total %v tickets, and %v are still available.\n", tickets, remainingTickets)
+	fmt.Println("Get your tickets here to attend.")
 }
